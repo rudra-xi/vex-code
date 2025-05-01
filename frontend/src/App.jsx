@@ -28,30 +28,24 @@ function App() {
 			<Routes>
 				{/* Public routes accessible without authentication */}
 				<Route element={<PublicRoute user={user} />}>
-					<Route path="/" element={<Landing />} />{" "}
+					<Route path="/" element={<Landing />} />
 					{/* Landing page */}
-					<Route path="/auth" element={<Auth />} />{" "}
+					<Route path="/auth" element={<Auth />} />
 					{/* Authentication page */}
 				</Route>
 
 				{/* Private routes accessible only with authentication */}
 				<Route element={<PrivateRoute user={user} />}>
-					<Route path="/dashboard" element={<Dashboard />} />{" "}
+					<Route path="/dashboard" element={<Dashboard />} />
 					{/* Dashboard page */}
 					<Route
 						path="/snippet:id"
 						element={<SnippetDetails />}
-					/>{" "}
+					/>
 					{/* Snippet details page */}
-					<Route
-						path="/editor"
-						element={<SnippetEditor />}
-					/>{" "}
+					<Route path="/editor" element={<SnippetEditor />} />
 					{/* Snippet editor page */}
-					<Route
-						path="/editor:id"
-						element={<SnippetEditor />}
-					/>{" "}
+					<Route path="/editor:id" element={<SnippetEditor />} />
 					{/* Snippet editor with ID */}
 				</Route>
 
