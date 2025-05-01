@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+	--font-raleway: "Raleway", sans-serif;
+	--font-abril: "Abril Fatface", serif;
+
+	--color-primary: #240a34;
+	--color-secondary: #ffedd8;
+	--color-ternary: #891652;
+	--color-accent: #eabe6c;
+}
+
+:root {
+	--primary: #240a34;
+	--secondary: #ffedd8;
+	--ternary: #891652;
+	--accent: #eabe6c;
+}
