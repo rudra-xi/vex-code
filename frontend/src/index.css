@@ -10,6 +10,8 @@
 	--color-secondary: #ffedd8;
 	--color-ternary: #891652;
 	--color-accent: #eabe6c;
+
+	--ease-slide: cubic-bezier(0.19, 0.02, 0.01, 1.01);
 }
 
 :root {
