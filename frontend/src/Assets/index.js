@@ -1,3 +1,6 @@
 import logo from "./logo.svg";
 
-export { logo };
+import { FiMenu, FiX } from "react-icons/fi";
+
+
+export { logo, FiMenu, FiX };
