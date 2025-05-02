@@ -4,7 +4,7 @@ export const Context = createContext();
 
 function ContextProvider(props) {
 	const [user, setUser] = useState(true);
-	const value = {};
+	const value = { user, setUser };
 
 	return <Context.Provider value={value}>{props.children}</Context.Provider>;
 }
