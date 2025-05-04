@@ -2,4 +2,4 @@ import Loader from "./Loader";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
-export { Loader, Navbar, Footer, Error };
+export { Loader, Navbar, Footer };
