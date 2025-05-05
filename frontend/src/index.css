@@ -13,6 +13,13 @@
 	/* MOBILE SIDEBAR ANIMATION */
 	--ease-slide: cubic-bezier(0.19, 0.02, 0.01, 1.01);
 
+	--animate-rotate: rotate 10s ease-in-out infinite;
+	@keyframes rotate {
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
 	/* ERROR PAGE SVG's CHARACTERS ANIMATION */
 	--animate-float: float 10s ease-in-out infinite;
 	@keyframes float {
