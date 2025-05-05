@@ -6,7 +6,7 @@ import { ErrorSVG } from "../Components"; // Custom SVG component for error illu
 function Error() {
 	return (
 		// Main container with styling for full-screen layout and gradient background
-		<div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-primary to-primary-dark text-secondary p-6 text-center">
+		<section className=" flex flex-col items-center justify-center bg-gradient-to-b from-primary to-primary-dark text-secondary p-6 text-center">
 			{/* SVG Container - displays the error illustration */}
 			<div className="">
 				<ErrorSVG />
@@ -40,7 +40,7 @@ function Error() {
 					Report Issue
 				</a>
 			</div>
-		</div>
+		</section>
 	);
 }
 
