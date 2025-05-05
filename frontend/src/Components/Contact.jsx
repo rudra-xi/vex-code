@@ -111,7 +111,7 @@ function Contact() {
 						href="https://github.com/rudra-xi/vex-code"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-primary rounded-full font-medium hover:bg-accent/90 transition-colors"
+						className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-primary rounded-full font-medium hover:-translate-y-1 transition-all ease-in duration-300"
 					>
 						<FaCode />
 						Become a Contributor
