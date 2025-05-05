@@ -26,7 +26,7 @@ function App() {
 			</>
 			{/* Navbar component for navigation */}
 			<Navbar />
-			<div className="sm:px-28 px-10 py-5 pt-20">
+			<div className="sm:px-28 px-10 py-5 pt-30">
 				{/* Defining application routes */}
 				<Routes>
 					{/* Public routes accessible without authentication */}
