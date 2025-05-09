@@ -29,7 +29,10 @@ const Landing = () => {
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 my-12">
 				{/* Looping through landingFeatures to display feature cards */}
 				{landingFeatures.map((feature, idx) => (
-					<div key={idx} className="border-2 rounded-3xl">
+					<div
+						key={idx}
+						className="border-2 rounded-3xl hover:-translate-y-1.5 transition-all ease-in duration-300"
+					>
 						<div className="text-secondary p-6 flex flex-col items-center gap-4">
 							{/* Feature Icon */}
 							{feature.icon}
