@@ -5,7 +5,7 @@ import { navLinks } from "../Constants/Constants";
 import { Context } from "../Contexts/Context";
 
 function Navbar() {
-	const { login } = useContext(Context);
+	const { isLogin } = useContext(Context);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
 	const toggleMobileMenu = () => {
@@ -22,7 +22,7 @@ function Navbar() {
 
 			{/* Desktop Navigation Links */}
 			<div className="hidden md:flex items-center">
-				{login ? (
+				{isLogin ? (
 					<div className="flex items-center space-x-10">
 						{navLinks.map((link, idx) => (
 							<Link
@@ -43,7 +43,7 @@ function Navbar() {
 						to="/auth"
 						className="font-bold border-2 rounded-full px-6 py-2 hover:scale-95 transition-all duration-300 ease-in-out cursor-pointer"
 					>
-						Login
+						isLogin
 					</Link>
 				)}
 			</div>
@@ -73,7 +73,7 @@ function Navbar() {
 			>
 				<div className="flex flex-col h-full p-6">
 					<div className="flex-1 flex flex-col space-y-8 mt-20">
-						{login ? (
+						{isLogin ? (
 							<>
 								{navLinks.map((link, idx) => (
 									<Link
@@ -95,7 +95,7 @@ function Navbar() {
 								to="/auth"
 								className="font-bold border-2 rounded-full px-6 py-2 w-full text-center"
 							>
-								Login
+								isLogin
 							</Link>
 						)}
 					</div>
