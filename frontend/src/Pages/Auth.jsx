@@ -114,7 +114,7 @@ const Auth = () => {
 					{/* Display different toggle text based on login/signup mode */}
 					{isLogin
 						? "New to VexCode?"
-						: "Already part of the VexCode community?"}
+						: "Already part of the VexCode community?"} {" "}
 					<button
 						type="button"
 						onClick={toggleAuthMode}
