@@ -16,7 +16,7 @@ import { Terms, Policy } from "./Pages/Legal"; // Importing legal pages
 import { Context } from "./Contexts/Context"; // Importing context for global state
 
 function App() {
-	const { user } = useContext(Context); // Accessing the user from context
+	const { isLogin } = useContext(Context); // Accessing the user from context
 
 	return (
 		<div className="w-full h-full bg-primary text-secondary font-raleway">
@@ -30,7 +30,7 @@ function App() {
 				{/* Defining application routes */}
 				<Routes>
 					{/* Public routes accessible without authentication */}
-					<Route element={<PublicRoute user={user} />}>
+					<Route element={<PublicRoute user={isLogin} />}>
 						{/* Landing page */}
 						<Route path="/" element={<Landing />} />
 						{/* Authentication page */}
@@ -38,7 +38,7 @@ function App() {
 					</Route>
 
 					{/* Private routes accessible only with authentication */}
-					<Route element={<PrivateRoute user={user} />}>
+					<Route element={<PrivateRoute user={isLogin} />}>
 						{/* Dashboard page */}
 						<Route
 							path="/dashboard"
