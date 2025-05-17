@@ -5,17 +5,36 @@ import { navLinks } from "../Constants/Constants";
 import { Context } from "../Contexts/Context";
 
 function Navbar() {
-	const { isLogin } = useContext(Context);
+	const { isLogin, setIsLogin, navigate } = useContext(Context);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
 	const toggleMobileMenu = () => {
 		setIsMobileMenuOpen(!isMobileMenuOpen);
 	};
 
+	const closeMobileMenu = () => {
+		setIsMobileMenuOpen(false);
+	};
+
+	const handleLogout = () => {
+		setIsLogin(false);
+		closeMobileMenu(); // Close menu after logout
+		navigate("/"); // Redirect to home
+	};
+
+	const handleNavLinkClick = (link) => {
+		closeMobileMenu();
+		navigate(link); // Programmatic navigation
+	};
+
 	return (
 		<nav className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-10 py-5 flex justify-between items-center bg-primary shadow-md">
 			{/* Logo Section */}
-			<Link to="/" className="flex items-center gap-5">
+			<Link
+				to="/"
+				className="flex items-center gap-5"
+				onClick={closeMobileMenu} // Close menu when logo clicked
+			>
 				<img src={logo} alt="VexCode Logo" className="w-10" />
 				<p className="font-abril text-4xl">VexCode</p>
 			</Link>
@@ -34,7 +53,10 @@ function Navbar() {
 								{link.text}
 							</Link>
 						))}
-						<button className="font-bold border-2 hover:text-accent rounded-full px-4 py-2 hover:scale-95 transition-all duration-300 ease-in-out cursor-pointer">
+						<button
+							onClick={handleLogout}
+							className="font-bold border-2 hover:text-accent rounded-full px-4 py-2 hover:scale-95 transition-all duration-300 ease-in-out cursor-pointer"
+						>
 							Logout
 						</button>
 					</div>
@@ -61,7 +83,7 @@ function Navbar() {
 			{isMobileMenuOpen && (
 				<div
 					className="fixed inset-0 bg-primary bg-opacity-50 z-40"
-					onClick={toggleMobileMenu}
+					onClick={closeMobileMenu}
 				></div>
 			)}
 
@@ -76,27 +98,37 @@ function Navbar() {
 						{isLogin ? (
 							<>
 								{navLinks.map((link, idx) => (
-									<Link
-										to={link.link}
+									<button
 										key={idx}
-										className="text-lg flex items-center py-2"
-										onClick={toggleMobileMenu}
+										onClick={() =>
+											handleNavLinkClick(
+												link.link
+											)
+										}
+										className="text-lg flex items-center py-3 px-4 hover:bg-accent/10 rounded-lg transition-colors"
 									>
-										{link.icon}
+										<span className="mr-3">
+											{link.icon}
+										</span>
 										{link.text}
-									</Link>
+									</button>
 								))}
-								<button className="font-bold border-2 rounded-full px-4 py-2 mt-4 w-full">
+								<button
+									onClick={handleLogout}
+									className="font-bold border-2 border-accent rounded-full px-4 py-2 mt-4 w-full hover:bg-accent/10 transition-colors"
+								>
 									Logout
 								</button>
 							</>
 						) : (
-							<Link
-								to="/auth"
-								className="font-bold border-2 rounded-full px-6 py-2 w-full text-center"
+							<button
+								onClick={() =>
+									handleNavLinkClick("/auth")
+								}
+								className="font-bold border-2 border-accent rounded-full px-6 py-2 w-full text-center hover:bg-accent/10 transition-colors"
 							>
-								isLogin
-							</Link>
+								Login
+							</button>
 						)}
 					</div>
 				</div>
