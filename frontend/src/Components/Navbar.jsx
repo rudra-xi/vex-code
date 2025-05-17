@@ -1,33 +1,36 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { logo, FiMenu, FiX } from "../Assets";
+import { FiMenu, FiX } from "react-icons/fi";
+import { BiLogInCircle, BiLogOutCircle } from "react-icons/bi";
+import logo from "../Assets/logo.svg"; // Importing logo image
 import { navLinks } from "../Constants/Constants";
 import { Context } from "../Contexts/Context";
 
 function Navbar() {
-	const { isLogin, setIsLogin, navigate } = useContext(Context);
-	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+	const { isLogin, setIsLogin, navigate } = useContext(Context); // Get login state and navigation from context
+	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State for mobile menu open/close
 
 	const toggleMobileMenu = () => {
-		setIsMobileMenuOpen(!isMobileMenuOpen);
+		setIsMobileMenuOpen(!isMobileMenuOpen); // Toggle mobile menu
 	};
 
 	const closeMobileMenu = () => {
-		setIsMobileMenuOpen(false);
+		setIsMobileMenuOpen(false); // Close mobile menu
 	};
 
 	const handleLogout = () => {
-		setIsLogin(false);
+		setIsLogin(false); // Set login state to false
 		closeMobileMenu(); // Close menu after logout
 		navigate("/"); // Redirect to home
 	};
 
 	const handleNavLinkClick = (link) => {
-		closeMobileMenu();
-		navigate(link); // Programmatic navigation
+		closeMobileMenu(); // Close menu after clicking a link
+		navigate(link); // Navigate to the selected link
 	};
 
 	return (
+		// Main navigation bar container
 		<nav className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-10 py-5 flex justify-between items-center bg-primary shadow-md">
 			{/* Logo Section */}
 			<Link
@@ -42,6 +45,7 @@ function Navbar() {
 			{/* Desktop Navigation Links */}
 			<div className="hidden md:flex items-center">
 				{isLogin ? (
+					// If logged in, show nav links and logout button
 					<div className="flex items-center space-x-10">
 						{navLinks.map((link, idx) => (
 							<Link
@@ -55,17 +59,20 @@ function Navbar() {
 						))}
 						<button
 							onClick={handleLogout}
-							className="font-bold border-2 hover:text-accent rounded-full px-4 py-2 hover:scale-95 transition-all duration-300 ease-in-out cursor-pointer"
+							className="font-bold flex gap-2 items-center border-2 hover:text-accent rounded-full px-4 py-2 hover:scale-95 transition-all duration-300 ease-in-out cursor-pointer"
 						>
-							Logout
+							<span>Logout</span>
+							<BiLogOutCircle className="text-accent" />
 						</button>
 					</div>
 				) : (
+					// If not logged in, show login button
 					<Link
 						to="/auth"
-						className="font-bold border-2 rounded-full px-6 py-2 hover:scale-95 transition-all duration-300 ease-in-out cursor-pointer"
+						className="font-bold flex gap-2 items-center border-2 rounded-full px-6 py-2 hover:scale-95 transition-all duration-300 ease-in-out cursor-pointer"
 					>
-						Login
+						<span>Login</span>
+						<BiLogInCircle className="text-accent" />
 					</Link>
 				)}
 			</div>
@@ -96,6 +103,7 @@ function Navbar() {
 				<div className="flex flex-col h-full p-6">
 					<div className="flex-1 flex flex-col space-y-8 mt-20">
 						{isLogin ? (
+							// If logged in, show nav links and logout button in mobile menu
 							<>
 								{navLinks.map((link, idx) => (
 									<button
@@ -121,6 +129,7 @@ function Navbar() {
 								</button>
 							</>
 						) : (
+							// If not logged in, show login button in mobile menu
 							<button
 								onClick={() =>
 									handleNavLinkClick("/auth")
