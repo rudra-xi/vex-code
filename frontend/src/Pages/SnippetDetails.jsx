@@ -14,8 +14,11 @@ import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { Context } from "../Contexts/Context";
 
+// Main component for snippet details page
 const SnippetDetails = () => {
 	const { customStyles, languageOptions } = useContext(Context);
+
+	// State variables for form fields
 	const [code, setCode] = useState("// Start coding here...");
 	const [language, setLanguage] = useState(languageOptions[0]);
 	const [title, setTitle] = useState("");
@@ -26,7 +29,7 @@ const SnippetDetails = () => {
 
 	const animatedComponents = makeAnimated();
 
-	// Enhanced Monaco theme configuration
+	// Setup custom Monaco editor theme
 	const setupEditor = (monaco) => {
 		monaco.editor.defineTheme("vexcode-pro", {
 			base: "vs-dark",
@@ -68,21 +71,24 @@ const SnippetDetails = () => {
 		});
 	};
 
+	// Called when the editor is mounted
 	const handleEditorDidMount = (editor) => {
 		editorRef.current = editor;
 		monaco.editor.setTheme("vexcode-pro");
-		// Add a keyboard shortcut for formatting (Ctrl+S/Cmd+S)
+		// Add keyboard shortcut for formatting (Ctrl+S/Cmd+S)
 		editor.addCommand(
 			monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS,
 			handleFormat
 		);
 	};
 
+	// Format code in the editor
 	const handleFormat = () => {
 		editorRef.current?.getAction("editor.action.formatDocument").run();
 		toast.success("Code formatted!");
 	};
 
+	// Toggle fullscreen mode for the editor
 	const toggleFullscreen = () => {
 		setIsFullscreen(!isFullscreen);
 		setTimeout(() => {
@@ -90,6 +96,7 @@ const SnippetDetails = () => {
 		}, 0);
 	};
 
+	// Handle cancel/clear button click
 	const handleCancel = () => {
 		if (
 			code.trim() !== "// Start coding here..." ||
@@ -103,6 +110,7 @@ const SnippetDetails = () => {
 		}
 	};
 
+	// Reset all form fields to default
 	const resetForm = () => {
 		setTitle("");
 		setTags("");
@@ -118,27 +126,29 @@ const SnippetDetails = () => {
 				<div className="pb-20">
 					<TitleCard title={"New Snippet"} />
 				</div>
+				{/* Action buttons */}
 				<div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
 					<div className="flex gap-4">
 						<button
 							onClick={handleCancel}
 							className="px-6 py-3 rounded-full border-2 border-secondary/20 hover:border-secondary/40 flex items-center gap-2 transition-all cursor-pointer hover:bg-secondary/5"
 						>
-							<FiX /> Cancel
+							<FiX /> Clear
 						</button>
 						<button
 							className="px-6 py-3 rounded-full bg-accent text-primary font-bold hover:bg-accent/90 flex items-center gap-2 transition-all hover:-translate-y-1 cursor-pointer shadow-md hover:shadow-accent/20"
 							onClick={() =>
 								toast.success("Snippet saved!")
-							} // Replace with actual save logic
+							}
 						>
 							<FiSave /> Save Snippet
 						</button>
 					</div>
 				</div>
 
-				{/* Form */}
+				{/* Form fields */}
 				<div className="space-y-8">
+					{/* Title input */}
 					<div>
 						<label className="block mb-3 font-bold text-lg text-secondary">
 							Title
@@ -153,6 +163,7 @@ const SnippetDetails = () => {
 					</div>
 
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+						{/* Language select */}
 						<div>
 							<label className="block mb-3 font-bold text-lg text-secondary">
 								Language
@@ -176,6 +187,7 @@ const SnippetDetails = () => {
 								classNamePrefix="react-select"
 							/>
 						</div>
+						{/* Tags input */}
 						<div>
 							<label className="block mb-3 font-bold text-lg text-secondary">
 								Tags
@@ -195,6 +207,7 @@ const SnippetDetails = () => {
 						</div>
 					</div>
 
+					{/* Description textarea */}
 					<div>
 						<label className="block mb-3 font-bold text-lg text-secondary">
 							Description{" "}
@@ -203,7 +216,7 @@ const SnippetDetails = () => {
 							</span>
 						</label>
 						<textarea
-							className="w-full p-4 rounded-2xl text-secondary placeholder:text-secondary/60 border-2 border-accent/50 focus:border-accent focus:outline-none min-h-[120px] bg-primary/50 resize-y transition-all duration-300"
+							className="w-full p-4 rounded-2xl text-secondary placeholder:text-secondary/60 border-2 border-accent/50 focus:border-accent focus:outline-none min-h-[120px] bg-primary/50 transition-all duration-300 resize-none"
 							placeholder="What does this snippet do? Any special instructions?"
 							value={description}
 							onChange={(e) =>
@@ -212,6 +225,7 @@ const SnippetDetails = () => {
 						/>
 					</div>
 
+					{/* Code editor section */}
 					<div>
 						<div className="flex justify-between items-center mb-3">
 							<label className="font-bold text-lg text-secondary">
@@ -226,7 +240,7 @@ const SnippetDetails = () => {
 									<FiCode /> Format
 								</button>
 
-								{/* Fullscreen Toggle Button - ADD THIS */}
+								{/* Fullscreen Toggle Button */}
 								<button
 									onClick={toggleFullscreen}
 									className="text-accent flex items-center gap-2 font-medium hover:text-accent/80 transition-colors"
@@ -251,7 +265,7 @@ const SnippetDetails = () => {
 									: "h-[500px]"
 							}`}
 						>
-							{/* Add header bar in fullscreen mode */}
+							{/* Header bar in fullscreen mode */}
 							{isFullscreen && (
 								<div className="flex justify-end items-center mb-4 px-2">
 									<div className="flex gap-3">

@@ -1,10 +1,25 @@
 import React from "react";
 import { TitleCard } from "../Components"; // Importing the TitleCard component
-import { landingFeatures } from "../Constants/Constants"; // Importing feature data
+import { landingFeatures, landingSnippets } from "../Constants/Constants"; // Importing feature data
 import { Link } from "react-router-dom"; // Importing Link for navigation
 import { MdOutlineTerminal } from "react-icons/md"; // Importing an icon from react-icons
+import { Editor } from "@monaco-editor/react";
 
 const Landing = () => {
+	const editorOptions = {
+		readOnly: true,
+		minimap: { enabled: false },
+		lineNumbers: "off",
+		folding: false,
+		scrollBeyondLastLine: false,
+		fontSize: 13,
+		fontFamily: "'Fira Code', monospace",
+		renderLineHighlight: "none",
+		scrollbar: {
+			vertical: "hidden",
+			horizontal: "hidden",
+		},
+	};
 	return (
 		<section>
 			{/* Header Section */}
@@ -64,6 +79,71 @@ const Landing = () => {
 				<p className="font-bold text-accent">
 					– git commit -m "Brain optimized"
 				</p>
+			</div>
+
+			{/* Example Snippets Section */}
+			<div className="my-16">
+				<h2 className="text-3xl font-bold mb-8 text-center">
+					<span className="text-accent">Popular</span> Snippet
+					Examples
+				</h2>
+
+				<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+					{landingSnippets.map((snippet, index) => (
+						<div
+							key={index}
+							className="border-2 border-accent/20 rounded-2xl overflow-hidden hover:border-accent/40 transition-all"
+						>
+							<div className="p-4 bg-primary/50">
+								<h3 className="text-xl font-bold text-secondary mb-2">
+									{snippet.title}
+								</h3>
+								<p className="text-sm text-secondary/80 mb-3">
+									{snippet.description}
+								</p>
+								<div className="h-60 rounded-lg overflow-hidden">
+									<Editor
+										height="100%"
+										language={snippet.language}
+										value={snippet.code}
+										theme="vs-dark"
+										options={editorOptions}
+										loading={
+											<div className="h-full flex items-center justify-center bg-[#1e1e1e] text-secondary">
+												Loading snippet...
+											</div>
+										}
+										beforeMount={(monaco) => {
+											monaco.editor.defineTheme(
+												"landing-theme",
+												{
+													base: "vs-dark",
+													inherit: true,
+													rules: [
+														{
+															token: "keyword",
+															foreground:
+																"C6DE41",
+														},
+													],
+													colors: {
+														"editor.background":
+															"#071C21",
+													},
+												}
+											);
+										}}
+										onMount={(editor) => {
+											editor.updateOptions({
+												theme: "landing-theme",
+											});
+										}}
+									/>
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
 			</div>
 
 			{/* Call to Action (CTA) Section */}
