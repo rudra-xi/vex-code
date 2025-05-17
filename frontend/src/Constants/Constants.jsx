@@ -113,12 +113,96 @@ export const landingFeatures = [
 	},
 ];
 
+export const landingSnippets = [
+	{
+		title: "React Custom Hook (useFetch)",
+		language: "javascript",
+		code: `import { useState, useEffect } from 'react';
+
+const useFetch = (url) => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(response.statusText);
+        const json = await response.json();
+        setData(json);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [url]);
+
+  return { data, loading, error };
+};
+
+export default useFetch;`,
+		description: "A reusable fetch hook for API calls",
+	},
+	{
+		title: "Debounce Function",
+		language: "javascript",
+		code: `const debounce = (func, delay) => {
+  let timeoutId;
+  
+  return function(...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+};
+
+// Usage example:
+// const handleSearch = debounce((query) => {
+//   console.log('Searching for:', query);
+// }, 300);`,
+		description: "Optimize performance by delaying expensive operations",
+	},
+	{
+		title: "Dark Mode Toggle",
+		language: "javascript",
+		code: `import { useEffect, useState } from 'react';
+
+const useDarkMode = () => {
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem('darkMode');
+    return saved === 'true' || 
+      (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  });
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', isDark);
+    localStorage.setItem('darkMode', isDark);
+  }, [isDark]);
+
+  const toggle = () => setIsDark(!isDark);
+
+  return [isDark, toggle];
+};
+
+export default useDarkMode;`,
+		description:
+			"Persistent dark mode toggle with system preference detection",
+	},
+];
+
 export const testSnippets = [
 	{
 		id: 1,
 		title: "useFetch Hook",
 		tag: "React",
 		language: "javascript",
+		description:
+			"A reusable React hook for handling API requests with built-in loading and error states. Perfect for data fetching in functional components.",
 		code: `import { useState, useEffect } from 'react';
 
 const useFetch = (url, options = {}) => {
@@ -156,7 +240,8 @@ export default useFetch;`,
 		title: "Dark Mode Toggle",
 		tag: "React",
 		language: "javascript",
-
+		description:
+			"Persistent dark mode hook that remembers user preference in localStorage and respects system settings. Automatically applies dark class to document.",
 		code: `import { useState, useEffect } from 'react';
 
 const useDarkMode = () => {
@@ -186,7 +271,8 @@ export default useDarkMode;`,
 		title: "Debounce Function",
 		tag: "JavaScript",
 		language: "javascript",
-
+		description:
+			"Optimize performance by delaying function execution until after a certain wait time has elapsed since the last call. Essential for search inputs and resize handlers.",
 		code: `const debounce = (func, delay) => {
   let timeoutId;
   
@@ -204,7 +290,8 @@ export default useDarkMode;`,
 		title: "Form Validation",
 		tag: "React",
 		language: "javascript",
-
+		description:
+			"Custom hook for form validation with support for field validation on blur and form submission. Returns validation errors and submission state.",
 		code: `import { useState } from 'react';
 
 const useFormValidation = (initialState, validate) => {
@@ -252,7 +339,6 @@ const useFormValidation = (initialState, validate) => {
 		title: "TypeScript Interface",
 		tag: "TypeScript",
 		language: "typescript",
-
 		code: `interface User {
   id: number;
   name: string;
@@ -270,7 +356,8 @@ function greetUser(user: User): string {
 		title: "Python Flask Route",
 		tag: "Python",
 		language: "python",
-
+		description:
+			"Basic Flask API endpoint that returns JSON data. Demonstrates route definition and JSON response formatting.",
 		code: `from flask import Flask, jsonify
 
 app = Flask(__name__)
@@ -289,7 +376,6 @@ def get_users():
 		title: "CSS Grid Layout",
 		tag: "CSS",
 		language: "css",
-
 		code: `.container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -306,7 +392,8 @@ def get_users():
 		title: "SQL Query",
 		tag: "SQL",
 		language: "sql",
-
+		description:
+			"SQL query that counts posts per user and filters for active users. Demonstrates JOIN, GROUP BY, and HAVING clauses.",
 		code: `SELECT 
   u.username,
   COUNT(p.id) AS post_count
