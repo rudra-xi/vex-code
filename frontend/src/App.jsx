@@ -8,7 +8,7 @@ import {
 	Dashboard,
 	Landing,
 	SnippetDetails,
-	SnippetEditor,
+	PinnedFrag,
 	Error,
 } from "./Pages"; // Importing page components
 import { PrivateRoute, PublicRoute } from "./Security"; // Importing route guards
@@ -46,18 +46,13 @@ function App() {
 						/>
 						{/* Snippet details page */}
 						<Route
-							path="/snippet:id"
+							path="/snippet"
 							element={<SnippetDetails />}
 						/>
-						{/* Snippet editor page */}
+						{/* Starred snippets page */}
 						<Route
-							path="/editor"
-							element={<SnippetEditor />}
-						/>
-						{/* Snippet editor with ID */}
-						<Route
-							path="/editor:id"
-							element={<SnippetEditor />}
+							path="/pin"
+							element={<PinnedFrag />}
 						/>
 					</Route>
 
